@@ -23,7 +23,9 @@ nav a { text-decoration: none; padding-block: 8px; color: var(--muted); }
 nav a[aria-current] { color: var(--purple); border-bottom: 2px solid var(--purple); }
 nav a:hover { color: var(--purple); }
 nav span { margin-left: 8px; }
-.welcome { text-align: center; padding: 74px 0 0; }
+.welcome { text-align: center; padding: 32px 0 0; }
+/* Keep space for game artwork without showing a placeholder. */
+.game-artwork { width: min(100%, 360px); height: 88px; margin: 0 auto 24px; }
 .eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--purple); margin: 0 0 24px; }
 .eyebrow > span { display: inline-block; width: 7px; height: 7px; background: var(--purple); margin-right: 8px; vertical-align: 1px; }
 h1 { font-size: clamp(44px, 6.6vw, 80px); line-height: 1.08; letter-spacing: -3.5px; font-weight: 650; margin: 0; }
@@ -56,7 +58,8 @@ footer > span:first-child { font-weight: 700; letter-spacing: 1px; color: var(--
   .brand-mark { width: 29px; height: 29px; font-size: 23px; }
   nav { gap: 16px; font-size: 12px; }
   nav span { display: none; }
-  .welcome { padding-top: 54px; }
+  .welcome { padding-top: 24px; }
+  .game-artwork { height: 64px; margin-bottom: 20px; }
   h1 { letter-spacing: -2px; }
   .intro { font-size: 15px; margin-top: 24px; }
   .buttons { flex-direction: column; max-width: 340px; margin-inline: auto; }
@@ -66,3 +69,4 @@ footer > span:first-child { font-weight: 700; letter-spacing: 1px; color: var(--
   .about { grid-template-columns: 1fr; gap: 24px; padding-block: 32px; }
   footer { flex-wrap: wrap; gap: 12px 24px; line-height: 1.6; }
 }
+
