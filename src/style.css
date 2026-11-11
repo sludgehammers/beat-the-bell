@@ -174,9 +174,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
 .site-header, main, footer { width: min(1120px, calc(100% - 96px)); margin-inline: auto; }
 .site-header { position: sticky; top: 0; z-index: 10; width: 100%; padding-inline: max(48px, calc((100% - 1120px) / 2)); background: var(--page-background); min-height: 106px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); gap: 24px; }
-.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 14px; font-weight: 750; letter-spacing: 1.5px; }
-.brand-mark { display: grid; place-items: center; width: 36px; height: 36px; background: var(--cyan); color: #34113f; font-family: monospace; font-size: 27px; letter-spacing: -4px; padding-right: 4px; clip-path: polygon(0 0, 80% 0, 80% 20%, 100% 20%, 100% 100%, 0 100%); }
-nav { display: flex; align-items: center; gap: 28px; font-size: 14px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 18px; font-weight: 700; letter-spacing: -.4px; white-space: nowrap; }
+.brand-mark { flex-shrink: 0; display: grid; place-items: center; width: 36px; height: 36px; background: var(--cyan); color: #34113f; font-family: monospace; font-size: 27px; letter-spacing: -4px; padding-right: 4px; clip-path: polygon(0 0, 80% 0, 80% 20%, 100% 20%, 100% 100%, 0 100%); }
+nav { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 14px; }
 nav a { text-decoration: none; padding-block: 8px; color: var(--muted); }
 nav a[aria-current] { color: var(--purple); border-bottom: 2px solid var(--purple); }
 nav a:hover { color: var(--purple); }
@@ -262,7 +262,7 @@ footer { display: flex; border-top: 1px solid var(--line); padding: 24px 0; font
   .site-header { width: 100%; padding: 20px; flex-wrap: wrap; gap: 20px; }
   .brand { min-width: 0; }
   .brand-mark { flex-shrink: 0; }
-  .brand { font-size: 12px; }
+  .brand { font-size: 17px; }
   nav { flex-wrap: wrap; gap: 18px; font-size: 12px; }
   nav span { display: none; }
   .welcome { padding-top: 56px; }
@@ -380,4 +380,24 @@ meter::-moz-meter-bar { background: var(--cyan); }
   .stat-strip dd { font-size: 26px; }
   .class-management { align-items: start; flex-direction: column; }
   .project-summary { gap: 0; }
+}
+
+/* Shared site chrome stays compact while keeping every route visible. */
+.site-header nav a { min-height: 44px; display: inline-flex; align-items: center; }
+.site-header .theme-toggle { flex-shrink: 0; min-height: 44px; width: 44px; }
+.site-footer { justify-content: space-between; align-items: start; gap: 24px; flex-wrap: wrap; letter-spacing: 0; }
+.footer-brand { text-decoration: none; font-size: 15px; font-weight: 700; }
+.site-footer p { margin: 10px 0 0; font-size: 12px; font-weight: 400; color: var(--muted); line-height: 1.7; }
+.site-footer nav { gap: 20px; font-size: 13px; font-weight: 400; }
+.site-footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
+.launcher > *, .class-overview > *, .dashboard-columns > *, .progress-preview > *, .about-steps > *, .about-audiences > * { min-width: 0; }
+.about-editorial .mode-switch { line-height: 1.7; }
+@media (max-width: 1000px) {
+  .site-header { flex-wrap: wrap; padding-block: 18px; gap: 12px 24px; }
+  .site-header nav { gap: 8px 20px; }
+}
+@media (max-width: 760px) {
+  .site-header { padding-block: 14px; }
+  .site-header nav { width: 100%; gap: 6px 16px; font-size: 12px; }
+  .site-footer nav { gap: 8px 20px; }
 }

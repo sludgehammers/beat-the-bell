@@ -18,9 +18,9 @@ function applyTheme() {
   const toggle = document.querySelector<HTMLButtonElement>('#theme-toggle');
   if (toggle) {
     toggle.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${darkMode ? '<path d="M20.9 13.1A9 9 0 0 1 10.9 3.1a9 9 0 1 0 10 10Z" />' : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/>'}</svg>`;
-    toggle.setAttribute('aria-label', 'Night theme');
-    toggle.title = darkMode ? 'Night — switch to Morning' : 'Morning — switch to Night';
-    toggle.setAttribute('aria-pressed', String(darkMode));
+    const themeAction = darkMode ? 'Switch to morning mode' : 'Switch to night mode';
+    toggle.setAttribute('aria-label', themeAction);
+    toggle.title = themeAction;
   }
 }
 
@@ -72,12 +72,14 @@ function render() {
     <header class="site-header">
       <a class="brand" href="#home" aria-label="Beat the Bell home">
         <span class="brand-mark" aria-hidden="true">b.</span>
-        <span>BEAT THE BELL LOGO PLACEHOLDER</span>
+        <span>Beat the Bell</span>
       </a>
       <nav aria-label="Main navigation">
         <a href="#home" ${!role && !isAbout ? 'aria-current="page"' : ''}>Home</a>
-        <a href="#about" ${isAbout ? 'aria-current="page"' : ''}>About the game</a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false"></button>
+        <a href="#student" ${role === 'Student' ? 'aria-current="page"' : ''}>Student</a>
+        <a href="#teacher" ${role === 'Teacher' ? 'aria-current="page"' : ''}>Teacher</a>
+        <a href="#about" ${isAbout ? 'aria-current="page"' : ''}>About</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to night mode"></button>
       </nav>
     </header>
     <main id="main" tabindex="-1">
@@ -98,7 +100,14 @@ function render() {
         </section>
       `}
     </main>
-    <footer><span>BEAT THE BELL</span></footer>
+    <footer class="site-footer">
+      <div><a class="footer-brand" href="#home">Beat the Bell</a><p>A university project prototype.</p></div>
+      <nav aria-label="Footer navigation">
+        <a href="#about">About the Game</a>
+        <a href="#student">Student</a>
+        <a href="#teacher">Teacher</a>
+      </nav>
+    </footer>
   `;
   headerObserver.disconnect();
   const header = document.querySelector<HTMLElement>('.site-header');
@@ -106,6 +115,11 @@ function render() {
     document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
     headerObserver.observe(header);
   }
+  // Keep skip navigation on the current route, including after refresh.
+  document.querySelector<HTMLAnchorElement>('.skip-link')?.addEventListener('click', event => {
+    event.preventDefault();
+    (document.querySelector<HTMLElement>('#about-page-title') ?? document.querySelector<HTMLElement>('#main'))?.focus();
+  });
   applyTheme();
   if (role === 'Student') bindStudentPreview();
   document.querySelector('#theme-toggle')?.addEventListener('click', () => {

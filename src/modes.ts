@@ -14,7 +14,7 @@ export function renderStudentPage(): string {
         <h1 id="student-title">Ready for the bell?</h1>
         <p class="intro">Step into the school, find your classroom and put your GCSE knowledge to the test.</p>
         <button class="demo-button" type="button" disabled aria-describedby="demo-status">Play Demo</button>
-        <p id="demo-status" class="small-note">Demo unavailable in this website build. Game integration is in development.</p>
+        <p id="demo-status" class="small-note">Demo in development. Play will be available when the game is ready.</p>
       </div>
       <figure class="school-preview"><img src="/school-bg.svg" alt="Pixel-art illustration of the Beat the Bell school" /><figcaption>Your school adventure starts here</figcaption></figure>
     </div>
@@ -27,7 +27,7 @@ export function renderStudentPage(): string {
       <div class="subject-detail" aria-live="polite"><h3 id="selected-subject">Maths</h3><p id="subject-description">${subjects[0][1]}</p><span class="small-note">Classroom in development</span></div>
     </section>
     <section class="progress-preview" aria-labelledby="progress-title">
-      <div><h2 id="progress-title">Your adventure so far</h2><p class="small-note">Demonstration data only &mdash; not saved progress.</p></div>
+      <div><h2 id="progress-title">Your adventure so far</h2><p class="small-note">Fictional demonstration data &mdash; not your progress and not saved.</p></div>
       <dl class="stat-strip"><div><dt>Points</dt><dd>240</dd></div><div><dt>Quizzes completed</dt><dd>6</dd></div><div><dt>Latest quiz score</dt><dd>80%</dd></div></dl>
     </section>
     <p class="mode-note">Character customisation is planned. No account is needed for this preview.</p>
@@ -57,7 +57,7 @@ export function renderTeacherPage(): string {
       <dl class="stat-strip"><div><dt>Students</dt><dd>28</dd></div><div><dt>Average quiz score</dt><dd>71%</dd></div><div><dt>Completed activities</dt><dd>168</dd></div></dl>
     </section>
     <div class="dashboard-columns">
-      <section class="dashboard-panel" aria-labelledby="performance-title"><h2 id="performance-title">Subject performance</h2><p class="small-note">Example average quiz scores</p>
+      <section class="dashboard-panel" aria-labelledby="performance-title"><h2 id="performance-title">Subject performance</h2><p class="small-note">Fictional average quiz scores</p>
         ${performance.map(([name, score]) => `<div class="performance-row"><label for="score-${name}">${name}<span>${score}%</span></label><meter id="score-${name}" min="0" max="100" value="${score}">${score}%</meter></div>`).join('')}
       </section>
       <section class="dashboard-panel" aria-labelledby="topics-title"><h2 id="topics-title">Topics to revisit</h2><p class="small-note">Illustrative suggestions, not an assessment of real students.</p><ul class="topic-list"><li><strong>Science</strong><span>Balancing chemical equations</span></li><li><strong>Mathematics</strong><span>Solving simultaneous equations</span></li><li><strong>English</strong><span>Using evidence in analysis</span></li></ul></section>
