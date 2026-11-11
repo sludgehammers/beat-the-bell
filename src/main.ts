@@ -1,4 +1,6 @@
 ﻿import './style.css';
+import { renderAboutPage } from './about';
+import { renderStudentPage, renderTeacherPage, bindStudentPreview } from './modes';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const headerObserver = new ResizeObserver(([entry]) => {
@@ -25,7 +27,8 @@ function applyTheme() {
 function render() {
   const route = window.location.hash;
   const role = route === '#teacher' ? 'Teacher' : route === '#student' ? 'Student' : null;
-  document.title = `${role ? `${role} mode` : 'GCSE revision through play'} | Beat the Bell`;
+  const isAbout = route === '#about';
+  document.title = `${isAbout ? 'About the Game' : role ? `${role} mode` : 'GCSE revision through play'} | Beat the Bell`;
   const forestScene = `
     <div class="forest-scene" aria-hidden="true">
       <div class="night-sky"></div>
@@ -72,34 +75,13 @@ function render() {
         <span>BEAT THE BELL LOGO PLACEHOLDER</span>
       </a>
       <nav aria-label="Main navigation">
-        <a href="#home" ${!role ? 'aria-current="page"' : ''}>Home</a>
-        <a href="#about">About the game</a>
+        <a href="#home" ${!role && !isAbout ? 'aria-current="page"' : ''}>Home</a>
+        <a href="#about" ${isAbout ? 'aria-current="page"' : ''}>About the game</a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false"></button>
       </nav>
     </header>
     <main id="main" tabindex="-1">
-      ${role ? `
-        <section class="mode-page" aria-labelledby="mode-title">
-          <a class="back-link" href="#home">Back to home</a>
-          <p class="eyebrow">Your revision hub</p>
-          <h1 id="mode-title">${role} mode</h1>
-          <p class="intro">${role === 'Student' ? 'Your next revision adventure starts here.' : 'A space to help your students learn and grow.'}</p>
-          <p class="coming-soon">Coming soon</p>
-          <div class="feature-grid">
-            ${(role === 'Student' ? [
-              ['Explore the school', 'Visit classrooms and take on GCSE revision challenges.'],
-              ['Practise your subjects', 'Build your confidence, one question at a time.'],
-              ['Track your progress', 'See what you have learned and what to try next.'],
-            ] : [
-              ['Manage your classes', 'Keep your classes together in one place.'],
-              ['Set revision activities', 'Help students practise the topics that matter.'],
-              ['View student progress', 'See how your students are getting on.'],
-            ]).map(([title, description]) => `<article class="feature-card"><h2>${title}</h2><p>${description}</p><span class="feature-status">In development</span></article>`).join('')}
-          </div>
-          <p class="mode-note">This is a preview of ${role.toLowerCase()} mode. These features are still being built.</p>
-          <a class="mode-switch" href="#${role === 'Student' ? 'teacher' : 'student'}">Switch to ${role === 'Student' ? 'teacher' : 'student'} mode</a>
-        </section>
-      ` : `
+      ${isAbout ? renderAboutPage() : role ? (role === 'Student' ? renderStudentPage() : renderTeacherPage()) : `
         <section class="welcome" aria-labelledby="welcome-title">
           ${forestScene}
           <h1 id="welcome-title">Beat the Bell</h1>
@@ -110,9 +92,9 @@ function render() {
           </div>
           <div class="game-artwork" aria-hidden="true"></div>
         </section>
-        <section class="about" id="about" aria-labelledby="about-title">
+        <section class="about" id="about-preview" aria-labelledby="about-title">
           <div><h2 id="about-title">About the game</h2></div>
-          <div class="about-copy"><p>Beat the Bell is a browser-based revision game for students in Years 10 and 11, inspired by classic top-down RPGs.</p><p class="prototype-note">The game is currently being developed as a university prototype.</p></div>
+          <div class="about-copy"><p>Beat the Bell is a browser-based revision game for students in Years 10 and 11, inspired by classic top-down RPGs.</p><p class="prototype-note">The game is currently being developed as a university prototype.</p><a class="learn-more" href="#about">Learn More<span aria-hidden="true"> &rarr;</span></a></div>
         </section>
       `}
     </main>
@@ -125,6 +107,7 @@ function render() {
     headerObserver.observe(header);
   }
   applyTheme();
+  if (role === 'Student') bindStudentPreview();
   document.querySelector('#theme-toggle')?.addEventListener('click', () => {
     darkMode = !darkMode;
     clearTimeout(themeTransitionTimer);
@@ -138,12 +121,13 @@ function render() {
 }
 
 window.addEventListener('hashchange', () => {
-  render();
-  if (window.location.hash === '#about') document.querySelector('#about')?.scrollIntoView();
-  else {
-    window.scrollTo(0, 0);
-    document.querySelector<HTMLElement>('#main')?.focus({ preventScroll: true });
+  // The skip link targets the current page without replacing its content.
+  if (window.location.hash === '#main') {
+    (document.querySelector<HTMLElement>('#about-page-title') ?? document.querySelector<HTMLElement>('#main'))?.focus();
+    return;
   }
+  render();
+  window.scrollTo(0, 0);
+  (document.querySelector<HTMLElement>('#about-page-title') ?? document.querySelector<HTMLElement>('#main'))?.focus({ preventScroll: true });
 });
 render();
-
