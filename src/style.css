@@ -50,6 +50,8 @@
 }
 * { box-sizing: border-box; }
 body {
+  /* Full-bleed decoration measures the page's usable width, excluding scrollbars. */
+  container-type: inline-size;
   isolation: isolate;
   margin: 0;
   min-height: 100vh;
@@ -63,7 +65,7 @@ body {
 }
 .forest-scene {
   position: absolute;
-  inset: 0 calc((min(1120px, 100vw - 96px) - 100vw) / 2);
+  inset: 0 calc((100% - 100cqw) / 2);
   z-index: -3;
   overflow: hidden;
   pointer-events: none;
@@ -266,7 +268,6 @@ footer { display: flex; border-top: 1px solid var(--line); padding: 24px 0; font
   nav { flex-wrap: wrap; gap: 18px; font-size: 12px; }
   nav span { display: none; }
   .welcome { padding-top: 56px; }
-  .forest-scene { left: -20px; right: -20px; }
   .scene-perch { top: 10%; }
   .game-artwork { height: clamp(130px, 36vw, 250px); margin-top: 32px; }
   h1 { letter-spacing: -2px; }
