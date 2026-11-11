@@ -102,14 +102,13 @@ function render() {
       ` : `
         <section class="welcome" aria-labelledby="welcome-title">
           ${forestScene}
-          <div class="game-artwork" aria-hidden="true"></div>
           <h1 id="welcome-title">Beat the Bell</h1>
           <p class="intro">Explore classrooms, answer questions and revise for your GCSEs.</p>
           <div class="buttons">
             <a class="button" href="#student">I'm a Student</a>
             <a class="button button-secondary" href="#teacher">I'm a Teacher</a>
           </div>
-          <div class="quest-note" aria-hidden="true"></div>
+          <div class="game-artwork" aria-hidden="true"></div>
         </section>
         <section class="about" id="about" aria-labelledby="about-title">
           <div><h2 id="about-title">About the game</h2></div>

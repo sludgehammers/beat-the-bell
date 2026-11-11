@@ -63,11 +63,12 @@ body {
 }
 .forest-scene {
   position: absolute;
-  inset: 0;
+  inset: 0 calc((min(1120px, 100vw - 96px) - 100vw) / 2);
   z-index: -3;
   overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(180deg, #e5f0f3, #faf9f3 65%);
+  background: linear-gradient(180deg, #e5f0f3, #faf9f3 82%);
+  mask-image: linear-gradient(to bottom, #000 65%, transparent);
 }
 .night-sky {
   position: absolute;
@@ -104,11 +105,17 @@ body {
 }
 .forest-layer {
   position: absolute;
-  bottom: 22px;
+  /* Anchor both mirrored tree groups to the scene, not the centred text. */
+  left: 0;
+  bottom: 20px;
   width: 100%;
   height: clamp(280px, 40vw, 440px);
   fill: var(--forest-distant);
   opacity: .24;
+  /* Fade the viewport edges and ground while leaving the central clearing open. */
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 18%, transparent 34%, transparent 66%, #000 82%, #000 93%, transparent),
+    linear-gradient(to bottom, #000 65%, transparent 100%);
+  mask-composite: intersect;
   transition: fill 1200ms ease;
 }
 .forest-near { fill: var(--forest-near); height: clamp(250px, 36vw, 400px); opacity: .18; }
@@ -174,20 +181,31 @@ nav a { text-decoration: none; padding-block: 8px; color: var(--muted); }
 nav a[aria-current] { color: var(--purple); border-bottom: 2px solid var(--purple); }
 nav a:hover { color: var(--purple); }
 nav span { margin-left: 8px; }
-.welcome { position: relative; isolation: isolate; text-align: center; padding: 32px 0 0; }
+.welcome {
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+  padding: clamp(64px, 8vw, 104px) 0 0;
+}
+/* Keep the sky full bleed; only the transparent school occupies this box. */
+.game-artwork {
+  position: relative;
+  height: clamp(200px, 27vw, 300px);
+  margin: 36px auto 0;
+  pointer-events: none;
+}
 .game-artwork::before {
   content: '';
   position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  left: 0;
-  right: 0;
-  bottom: 22px;
-  height: min(300px, 32vw);
-  background: var(--school-image) center bottom / contain no-repeat;
+  inset: 0;
+  background: var(--school-image) center bottom / auto 100% no-repeat;
   image-rendering: pixelated;
   opacity: var(--school-opacity);
   filter: var(--school-filter);
+  /* Retain the building's pixels, fading the outer trees and ground only. */
+  mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent),
+    linear-gradient(to bottom, #000 88%, transparent 100%);
+  mask-composite: intersect;
   transition: opacity 1200ms ease, filter 1200ms ease;
 }
 .welcome::before {
@@ -195,15 +213,15 @@ nav span { margin-left: 8px; }
   position: absolute;
   z-index: -2;
   pointer-events: none;
-  inset: auto 0 1px;
-  height: 30px;
-  background-color: var(--grass-color);
-  background-image: repeating-linear-gradient(90deg, transparent 0 28px, var(--grass-detail) 28px 32px, transparent 32px 48px);
-  background-size: 48px 4px;
-  background-repeat: repeat-x;
-  opacity: .2;
-  transition: background-color 1200ms ease;
+  inset: auto -20px 0;
+  height: 64px;
+  background: linear-gradient(to bottom, transparent, var(--grass-color) 45%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 25%, #000 75%, transparent);
+  opacity: .16;
+  transition: background 1200ms ease;
 }
+.welcome .intro { max-width: 470px; margin: 22px auto 26px; text-wrap: balance; }
+.welcome h1 { text-wrap: balance; }
 @media (prefers-reduced-motion: reduce) {
   .forest-scene *, .game-artwork::before, .welcome::before,
   :root[data-theme-transition='night'] .owl-wing,
@@ -212,7 +230,6 @@ nav span { margin-left: 8px; }
     transition: none;
   }
 }
-.game-artwork { width: min(100%, 360px); height: 88px; margin: 0 auto 24px; }
 .eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--purple); margin: 36px 0 24px; }
 h1 { font-size: clamp(44px, 6.6vw, 80px); line-height: 1.08; letter-spacing: -3.5px; font-weight: 650; margin: 0; }
 .intro { max-width: 510px; margin: 26px auto 34px; color: var(--muted); font-size: 17px; line-height: 1.8; }
@@ -222,9 +239,9 @@ h1 { font-size: clamp(44px, 6.6vw, 80px); line-height: 1.08; letter-spacing: -3.
 .button-secondary { background: var(--cyan); border-color: var(--cyan); }
 .button-secondary:hover { background: #47afd9; border-color: #47afd9; }
 .theme-toggle { width: 40px; min-height: 40px; padding: 9px; justify-content: center; gap: 0; }
-.quest-note { margin-top: 76px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 42px 0 48px; }
+.about { display: grid; grid-template-columns: 1fr 1.4fr; align-items: start; gap: 48px; margin-top: 24px; padding: 40px 0 52px; border-top: 1px solid var(--line); }
 .about h2 { font-size: 30px; font-weight: 600; line-height: 1.2; letter-spacing: -.8px; margin: 0; }
+.about-copy { max-width: 560px; }
 .about-copy p { margin: 0; font-size: 14px; line-height: 1.85; color: var(--muted); }
 .about-copy .prototype-note { font-size: 12px; margin-top: 14px; }
 footer { display: flex; border-top: 1px solid var(--line); padding: 24px 0; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--purple); }
@@ -248,14 +265,14 @@ footer { display: flex; border-top: 1px solid var(--line); padding: 24px 0; font
   .brand { font-size: 12px; }
   nav { flex-wrap: wrap; gap: 18px; font-size: 12px; }
   nav span { display: none; }
-  .welcome { padding-top: 24px; }
-  .game-artwork { height: 64px; margin-bottom: 20px; }
-  .game-artwork::before { height: clamp(150px, 38vw, 250px); }
+  .welcome { padding-top: 56px; }
+  .forest-scene { left: -20px; right: -20px; }
+  .scene-perch { top: 10%; }
+  .game-artwork { height: clamp(130px, 36vw, 250px); margin-top: 32px; }
   h1 { letter-spacing: -2px; }
   .intro { font-size: 15px; margin-top: 24px; }
   .buttons { flex-direction: column; max-width: 340px; margin-inline: auto; }
   .button { width: 100%; }
-  .quest-note { margin-top: 60px; }
   .about { grid-template-columns: 1fr; gap: 24px; padding-block: 32px; }
   .feature-grid { grid-template-columns: 1fr; }
 }
