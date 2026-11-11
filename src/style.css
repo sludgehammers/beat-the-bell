@@ -299,10 +299,6 @@ footer { display: flex; border-top: 1px solid var(--line); padding: 24px 0; font
 .about-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .about-card .mode-switch { display: inline-block; margin-top: 24px; line-height: 1.6; }
 .project-summary p { max-width: 720px; margin: 0; }
-.gameplay-preview { min-width: 0; margin: 0; }
-.screenshot-placeholder { aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1px dashed var(--line); color: var(--muted); font: 13px monospace; text-align: center; padding: 16px; }
-.screenshot-placeholder span { font-size: 28px; color: var(--purple); }
-.gameplay-preview figcaption { margin-top: 12px; font-size: 13px; color: var(--muted); line-height: 1.6; }
 @media (max-width: 1000px) {
   .about-subjects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -401,4 +397,48 @@ meter::-moz-meter-bar { background: var(--cyan); }
   .site-header { padding-block: 14px; }
   .site-header nav { width: 100%; gap: 6px 16px; font-size: 12px; }
   .site-footer nav { gap: 8px 20px; }
+}
+
+/* A compact editorial list for the project's revision aims. */
+.revision-aims { max-width: 760px; margin: 0; padding-left: 24px; }
+.revision-aims li { padding: 16px 0 16px 8px; border-top: 1px solid var(--line); }
+.revision-aims li::marker { color: var(--purple); font: 600 14px monospace; }
+.about-why .revision-aims h3 { margin: 0 0 6px; font-size: 17px; }
+.revision-aims p { margin: 0; }
+
+/* Original concept artwork is presented separately from gameplay screenshots. */
+.concept-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 40px; padding-block: 28px; }
+.concept-row + .concept-row { border-top: 1px solid var(--line); }
+.concept-figure { margin: 0; min-width: 0; }
+.concept-media { border: 1px solid var(--line); padding: 8px; }
+.concept-media + .concept-media { margin-top: 16px; }
+.concept-media img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
+.concept-index { color: var(--purple); font: 600 32px monospace; padding-block: 8px; }
+.concept-copy p { margin: 0; }
+@media (min-width: 761px) {
+  .concept-row:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  .concept-row:nth-of-type(even) .concept-figure { grid-column: 2; grid-row: 1; }
+  .concept-row:nth-of-type(even) .concept-copy { grid-column: 1; grid-row: 1; }
+}
+@media (max-width: 760px) {
+  .concept-row { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 24px; }
+}
+
+/* Planned experiences: compact previews, not simulated gameplay. */
+.experience-row { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); align-items: center; gap: 40px; padding-block: 28px; }
+.experience-row + .experience-row { border-top: 1px solid var(--line); }
+.experience-media { width: 100%; max-width: 640px; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-top: 3px solid var(--cyan); padding: 8px; }
+.experience-media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.experience-decoration { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: var(--muted); font: 12px monospace; }
+.experience-pixels { width: 8px; height: 8px; background: var(--cyan); box-shadow: 12px 0 var(--line), 0 12px var(--line), 12px 12px var(--cyan); margin: 0 12px 12px 0; }
+.experience-copy { min-width: 0; max-width: 540px; }
+.experience-copy p { margin: 0; }
+.experience-status { display: inline-block; margin-top: 12px; color: var(--muted); font: 12px monospace; }
+@media (min-width: 761px) {
+  .experience-row:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 640px); }
+  .experience-row:nth-of-type(even) .experience-media { grid-column: 2; grid-row: 1; }
+  .experience-row:nth-of-type(even) .experience-copy { grid-column: 1; grid-row: 1; }
+}
+@media (max-width: 760px) {
+  .experience-row { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 24px; }
 }

@@ -27,7 +27,7 @@ export function renderStudentPage(): string {
       <div class="subject-detail" aria-live="polite"><h3 id="selected-subject">Maths</h3><p id="subject-description">${subjects[0][1]}</p><span class="small-note">Classroom in development</span></div>
     </section>
     <section class="progress-preview" aria-labelledby="progress-title">
-      <div><h2 id="progress-title">Your adventure so far</h2><p class="small-note">Fictional demonstration data &mdash; not your progress and not saved.</p></div>
+      <div><h2 id="progress-title">Progress Preview</h2><p class="small-note">Example data &mdash; for demonstration only.</p></div>
       <dl class="stat-strip"><div><dt>Points</dt><dd>240</dd></div><div><dt>Quizzes completed</dt><dd>6</dd></div><div><dt>Latest quiz score</dt><dd>80%</dd></div></dl>
     </section>
     <p class="mode-note">Character customisation is planned. No account is needed for this preview.</p>
@@ -52,15 +52,15 @@ export function renderTeacherPage(): string {
   return `<section class="mode-page teacher-page" aria-labelledby="teacher-title">
     <a class="back-link" href="#home">Back to home</a>
     <header class="dashboard-header"><p class="eyebrow">Teaching workspace</p><h1 id="teacher-title">Teacher Dashboard</h1><p class="intro">A clear view of class revision, with space to spot where support could help.</p></header>
-    <p class="demo-notice">Dashboard prototype &mdash; all classes, figures and recommendations below are fictional demonstration data.</p>
+    <p class="demo-notice">Sample data &mdash; all classes, statistics and topic suggestions are for demonstration only.</p>
     <section class="class-overview" aria-labelledby="class-title"><div><p class="small-note">Class overview</p><h2 id="class-title">Year 10 &middot; Group A</h2></div>
       <dl class="stat-strip"><div><dt>Students</dt><dd>28</dd></div><div><dt>Average quiz score</dt><dd>71%</dd></div><div><dt>Completed activities</dt><dd>168</dd></div></dl>
     </section>
     <div class="dashboard-columns">
-      <section class="dashboard-panel" aria-labelledby="performance-title"><h2 id="performance-title">Subject performance</h2><p class="small-note">Fictional average quiz scores</p>
+      <section class="dashboard-panel" aria-labelledby="performance-title"><h2 id="performance-title">Subject performance</h2><p class="small-note">Average quiz scores</p>
         ${performance.map(([name, score]) => `<div class="performance-row"><label for="score-${name}">${name}<span>${score}%</span></label><meter id="score-${name}" min="0" max="100" value="${score}">${score}%</meter></div>`).join('')}
       </section>
-      <section class="dashboard-panel" aria-labelledby="topics-title"><h2 id="topics-title">Topics to revisit</h2><p class="small-note">Illustrative suggestions, not an assessment of real students.</p><ul class="topic-list"><li><strong>Science</strong><span>Balancing chemical equations</span></li><li><strong>Mathematics</strong><span>Solving simultaneous equations</span></li><li><strong>English</strong><span>Using evidence in analysis</span></li></ul></section>
+      <section class="dashboard-panel" aria-labelledby="topics-title"><h2 id="topics-title">Topics to revisit</h2><p class="small-note">Suggested revision topics</p><ul class="topic-list"><li><strong>Science</strong><span>Balancing chemical equations</span></li><li><strong>Mathematics</strong><span>Solving simultaneous equations</span></li><li><strong>English</strong><span>Using evidence in analysis</span></li></ul></section>
     </div>
     <section class="class-management" aria-labelledby="management-title"><div><h2 id="management-title">Class management</h2><p>Class creation, joining codes and student management are planned.</p></div><span class="subject-status">In development</span></section>
     <a class="mode-switch" href="#student">Switch to student mode</a>
