@@ -1,9 +1,9 @@
 /** Dedicated hash-route content; shared header, theme and footer live in main.ts. */
 export function renderAboutPage(): string {
-  // Enable each image only after the real capture exists; update alt to match it.
+  // Original game assets arranged as artwork previews while gameplay is developed.
   const experiences = [
-    { title: 'Explore the School', description: 'Explore a top-down school and enter subject classrooms.', src: '/images/gameplay/school-exploration.png', alt: 'Top-down school map with entrances to subject classrooms', ready: false },
-    { title: 'Take on Revision Challenges', description: 'Answer GCSE questions, earn points and learn from feedback.', src: '/images/gameplay/classroom-quiz.png', alt: 'Classroom revision quiz showing a GCSE question and answer feedback', ready: false },
+    { title: 'Explore the School', description: 'Explore a top-down school and enter subject classrooms.' },
+    { title: 'Take on Revision Challenges', description: 'Answer GCSE questions, earn points and learn from feedback.' },
   ];
   const steps = [
     ['01', 'Explore', 'Explore a virtual school and enter subject classrooms to find GCSE revision activities.'],
@@ -16,22 +16,26 @@ export function renderAboutPage(): string {
     ['Science', 'Review key ideas across biology, chemistry and physics.'],
     ['History', 'Revisit historical events, evidence and explanations.'],
   ];
-  // Add original artwork under public/images/concepts/, then add { src, alt } entries below.
-  // The website entry can include both early wireframes and a current website screenshot.
+  // Use original project artwork; leave website imagery empty until a genuine capture is supplied.
   const concepts: { title: string; description: string; images: { src: string; alt: string }[] }[] = [
     {
       title: 'Early Character Designs',
-      description: 'The team explored different player character styles and ideas for customisation through early sketches.',
-      images: [],
+      description: 'Original fox character sprites explore standing and walking poses facing left and right.',
+      images: [{ src: '/images/development/fox-full.png', alt: 'Original fox character sprite sheet with four left- and right-facing poses' }],
     },
     {
       title: 'School and Classroom Concepts',
       description: 'The team planned the school environment and classroom layouts around exploring different GCSE subjects.',
-      images: [],
+      images: [
+        { src: '/images/development/math.png', alt: 'Blue Maths subject building concept' },
+        { src: '/images/development/english.png', alt: 'Blue English subject building concept' },
+        { src: '/images/development/science.png', alt: 'Blue Science subject building concept' },
+        { src: '/images/development/history.png', alt: 'Blue History subject building concept' },
+      ],
     },
     {
       title: 'Website Design Development',
-      description: 'Early homepage wireframes and mockups helped shape the layout and visual direction of the current Beat the Bell website.',
+      description: 'The website design is developing alongside the game. A genuine wireframe or website screenshot has not yet been added here.',
       images: [],
     },
   ];
@@ -101,14 +105,12 @@ export function renderAboutPage(): string {
 
       <section class="about-page-section concept-gallery" aria-labelledby="concept-title">
         <h2 id="concept-title">From Concept to Game</h2>
-        <p class="section-summary">Beat the Bell started with sketches, early website designs and ideas for a school-based revision game. Our team has been exploring how to combine classic RPG gameplay with GCSE revision activities.</p>
+        <p class="section-summary">Original project concept artwork shows the characters and school environment being developed for Beat the Bell; these images are not screenshots of working Phaser gameplay.</p>
         ${concepts.map((concept, index) => `
           <article class="concept-row" aria-labelledby="concept-${index}-title">
-            <div class="concept-figure${concept.images.length ? '' : ' concept-index'}">
-              ${concept.images.length
-                ? concept.images.map(image => `<div class="concept-media"><img src="${image.src}" alt="${image.alt}" loading="lazy" /></div>`).join('')
-                : `<span aria-hidden="true">0${index + 1}</span>`}
-            </div>
+            ${concept.images.length ? `<div class="concept-figure${concept.images.length > 1 ? ' concept-artwork-grid' : ''}">
+              ${concept.images.map(image => `<div class="concept-media"><img src="${image.src}" alt="${image.alt}" loading="lazy" /></div>`).join('')}
+            </div>` : ''}
             <div class="concept-copy">
               <h3 id="concept-${index}-title">${concept.title}</h3>
               <p>${concept.description}</p>
@@ -118,17 +120,19 @@ export function renderAboutPage(): string {
 
       <section class="about-page-section experience-showcase" aria-labelledby="inside-title">
         <h2 id="inside-title">A Look Inside Beat the Bell</h2>
+        <p class="section-summary">These concept artwork previews illustrate the game in development; they are not screenshots of working Phaser gameplay.</p>
         ${experiences.map((experience, index) => `
           <article class="experience-row" aria-labelledby="experience-${index}-title">
             <div class="experience-media">
-              ${experience.ready
-                ? `<img src="${experience.src}" alt="${experience.alt}" loading="lazy" />`
-                : `<div class="experience-decoration"><span class="experience-pixels" aria-hidden="true"></span><span>In Development</span></div>`}
+              <div class="development-scene ${index === 0 ? 'school-scene' : 'classroom-scene'}" role="img" aria-label="${index === 0 ? 'School artwork preview with four subject buildings and a fox character on lined paper' : 'Classroom artwork preview with blue desks, books, a calculator, science equipment and a fox character'}">
+                ${index === 0
+                  ? ['english', 'math', 'history', 'science', 'fox'].map(asset => `<img class="scene-${asset}" src="/images/development/${asset}.png" alt="" loading="lazy" />`).join('')
+                  : ['bookcase', 'plant', 'desk', 'book', 'calculator', 'microscope', 'fox'].map(asset => `<img class="scene-${asset}" src="/images/development/${asset}.png" alt="" loading="lazy" />`).join('')}
+              </div>
             </div>
             <div class="experience-copy">
               <h3 id="experience-${index}-title">${experience.title}</h3>
               <p>${experience.description}</p>
-              ${experience.ready ? '<span class="experience-status">In Development</span>' : ''}
             </div>
           </article>`).join('')}
       </section>

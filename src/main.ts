@@ -101,7 +101,7 @@ function render() {
       `}
     </main>
     <footer class="site-footer">
-      <div><a class="footer-brand" href="#home">Beat the Bell</a><p>A university project prototype.</p></div>
+      <div><a class="footer-brand" href="#home">Beat the Bell</a></div>
       <nav aria-label="Footer navigation">
         <a href="#about">About the Game</a>
         <a href="#student">Student</a>
