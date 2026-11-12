@@ -33,12 +33,101 @@ export const mathsQuestions: QuizQuestion[] = [
   }
 ];
 
-export function renderQuiz(): string {
-  const firstQuestion = mathsQuestions[0];
+export const englishQuestions: QuizQuestion[] = [
+  {
+    question: "Which word is an adjective?",
+    answers: ["Run", "Beautiful", "Quickly", "Jump"],
+    correctAnswer: 1
+  },
+  {
+    question: "What is a metaphor?",
+    answers: [
+      "A comparison using like or as",
+      "An exaggeration",
+      "A direct comparison",
+      "A repeated sound"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Which sentence uses correct punctuation?",
+    answers: [
+      "Where are you going.",
+      "Where are you going?",
+      "where are you going?",
+      "Where are you going!"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "What is personification?",
+    answers: [
+      "Giving human qualities to non-human things",
+      "Repeating the same word",
+      "Comparing two numbers",
+      "Using words that rhyme"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Which word is a synonym for happy?",
+    answers: ["Angry", "Sad", "Joyful", "Tired"],
+    correctAnswer: 2
+  }
+];
+
+
+
+export const scienceQuestions: QuizQuestion[] = [
+  {
+    question: "What is the chemical symbol for oxygen?",
+    answers: ["O", "Ox", "O2", "Og"],
+    correctAnswer: 0
+  },
+  {
+    question: "Which organ pumps blood around the body?",
+    answers: ["Brain", "Lungs", "Heart", "Liver"],
+    correctAnswer: 2
+  },
+  {
+    question: "What force keeps planets orbiting the Sun?",
+    answers: ["Friction", "Gravity", "Magnetism", "Air resistance"],
+    correctAnswer: 1
+  },
+  {
+    question: "What is the pH of a neutral solution at 25°C?",
+    answers: ["0", "7", "10", "14"],
+    correctAnswer: 1
+  },
+  {
+    question: "Which gas do plants absorb during photosynthesis?",
+    answers: ["Oxygen", "Nitrogen", "Hydrogen", "Carbon dioxide"],
+    correctAnswer: 3
+  }
+];
+
+
+export function renderQuiz(): string {  
+const subjectName =
+  window.location.hash === '#english'
+    ? 'English'
+    : window.location.hash === '#science'
+      ? 'Science'
+      : 'Maths';
+
+
+  
+const firstQuestion =
+  subjectName === 'English'
+    ? englishQuestions[0]
+    : subjectName === 'Science'
+      ? scienceQuestions[0]
+      : mathsQuestions[0];
+
 
   return `
     <section class="quiz-container" aria-labelledby="quiz-title">
-      <h2 id="quiz-title">GCSE Maths Challenge</h2>
+      <h2 id="quiz-title">GCSE ${subjectName} Challenge</h2>
 
       <div class="quiz-header">
         <p>Time Remaining: <span id="quiz-timer">02:00</span></p>
@@ -68,6 +157,15 @@ export function renderQuiz(): string {
 
 
 export function bindQuiz(): void {
+ 
+const selectedSubject =
+  window.location.hash === '#english'
+    ? englishQuestions
+    : window.location.hash === '#science'
+      ? scienceQuestions
+      : mathsQuestions;
+
+
   let currentQuestion = 0;
   let score = 0;
   let answered = false;
@@ -110,7 +208,7 @@ console.log('Quiz elements:', { questionText, answersContainer, feedback, scoreD
   function showQuestion(): void {
     answered = false;
 
-    const question = mathsQuestions[currentQuestion];
+    const question = selectedSubject[currentQuestion];
 
     questionText!.textContent = question.question;
     feedback!.textContent = '';
@@ -134,7 +232,7 @@ console.log('Quiz elements:', { questionText, answersContainer, feedback, scoreD
 
     answered = true;
 
-    const question = mathsQuestions[currentQuestion];
+    const question = selectedSubject[currentQuestion];
 
     if (selectedAnswer === question.correctAnswer) {
       score += 10;
@@ -154,7 +252,7 @@ console.log('Quiz elements:', { questionText, answersContainer, feedback, scoreD
     nextQuestionTimeout = window.setTimeout(() => {
       currentQuestion++;
 
-      if (currentQuestion < mathsQuestions.length) {
+      if (currentQuestion < selectedSubject.length) {
         showQuestion();
       } else {
         showResults();
@@ -178,9 +276,16 @@ console.log('Quiz elements:', { questionText, answersContainer, feedback, scoreD
     if (!container) return;
 
     
-      
+  
+     const subjectName =
+      window.location.hash === '#english'
+    ? 'English'
+    : window.location.hash === '#science'
+      ? 'Science'
+      : 'Maths';
+
   const correctAnswers = score / 10;
-  const totalQuestions = mathsQuestions.length;
+  const totalQuestions = selectedSubject.length;
   const completed = currentQuestion >= totalQuestions;
 
   container.innerHTML = `
@@ -189,7 +294,7 @@ console.log('Quiz elements:', { questionText, answersContainer, feedback, scoreD
 
       <p class="results-message">
         ${completed
-          ? 'Well done! You completed the GCSE Maths Challenge.'
+          ? `Well done! You completed the GCSE ${subjectName} Challenge.`
           : 'The bell has rung! Your revision session is over.'}
       </p>
 
@@ -197,7 +302,7 @@ console.log('Quiz elements:', { questionText, answersContainer, feedback, scoreD
 
       <p>Correct Answers: ${correctAnswers} / ${totalQuestions}</p>
 
-      <p>Keep practising to improve your GCSE Maths knowledge!</p>
+      <p>Keep practising to improve your GCSE ${subjectName} knowledge!</p>
 
       <button type="button" id="play-again" class="quiz-answer">
         Play Again

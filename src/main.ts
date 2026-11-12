@@ -27,8 +27,8 @@ function applyTheme() {
 
 function render() {
   const route = window.location.hash;
-  if (route === '#quiz') {
-    document.title = 'GCSE Maths Quiz | Beat the Bell';
+  if (route === '#quiz' || route === '#english' || route === '#science') {
+    document.title = `GCSE ${route === '#english' ? 'English' : route === '#science' ? 'Science' : 'Maths'} Quiz | Beat the Bell`;
     app.innerHTML = renderQuiz();
     bindQuiz();
     return;

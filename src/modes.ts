@@ -40,8 +40,18 @@ export function bindStudentPreview(): void {
   const startQuizButton = document.querySelector<HTMLButtonElement>('#start-quiz');
 
   startQuizButton?.addEventListener('click', () => {
+  const selectedSubject =
+    document.querySelector('#selected-subject')?.textContent;
+
+  if (selectedSubject === 'English') {
+    window.location.hash = '#english';
+  } else if (selectedSubject === 'Science') {
+    window.location.hash = '#science';
+  } else {
     window.location.hash = '#quiz';
-  });
+  }
+});
+  
 
   document.querySelectorAll<HTMLButtonElement>('[data-subject]').forEach(button => {
     button.addEventListener('click', () => {
