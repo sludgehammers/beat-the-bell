@@ -1,6 +1,7 @@
 ﻿import './style.css';
 import { renderAboutPage } from './about';
 import { renderStudentPage, renderTeacherPage, bindStudentPreview } from './modes';
+import { renderQuiz, bindQuiz } from './quiz';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const headerObserver = new ResizeObserver(([entry]) => {
@@ -26,6 +27,12 @@ function applyTheme() {
 
 function render() {
   const route = window.location.hash;
+  if (route === '#quiz') {
+    document.title = 'GCSE Maths Quiz | Beat the Bell';
+    app.innerHTML = renderQuiz();
+    bindQuiz();
+    return;
+  }
   const role = route === '#teacher' ? 'Teacher' : route === '#student' ? 'Student' : null;
   const isAbout = route === '#about';
   document.title = `${isAbout ? 'About the Game' : role ? `${role} mode` : 'GCSE revision through play'} | Beat the Bell`;

@@ -13,8 +13,8 @@ export function renderStudentPage(): string {
         <p class="eyebrow">Your next revision adventure</p>
         <h1 id="student-title">Ready for the bell?</h1>
         <p class="intro">Step into the school, find your classroom and put your GCSE knowledge to the test.</p>
-        <button class="demo-button" type="button" disabled aria-describedby="demo-status">Play Demo</button>
-        <p id="demo-status" class="small-note">Demo in development. Play will be available when the game is ready.</p>
+        <button class="demo-button" type="button" id="start-quiz">Play Demo</button>
+        <p id="demo-status" class="small-note">Test you GCSE Maths knowledge in the two-minute revision challenges</p>
       </div>
       <figure class="school-preview"><img src="/school-bg.svg" alt="Pixel-art illustration of the Beat the Bell school" /><figcaption>Your school adventure starts here</figcaption></figure>
     </div>
@@ -36,6 +36,13 @@ export function renderStudentPage(): string {
 }
 
 export function bindStudentPreview(): void {
+
+  const startQuizButton = document.querySelector<HTMLButtonElement>('#start-quiz');
+
+  startQuizButton?.addEventListener('click', () => {
+    window.location.hash = '#quiz';
+  });
+
   document.querySelectorAll<HTMLButtonElement>('[data-subject]').forEach(button => {
     button.addEventListener('click', () => {
       const subject = subjects[Number(button.dataset.subject)];

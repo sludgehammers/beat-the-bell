@@ -442,3 +442,140 @@ meter::-moz-meter-bar { background: var(--cyan); }
 @media (max-width: 760px) {
   .experience-row { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 24px; }
 }
+
+
+
+/* =====================================
+   BEAT THE BELL - GCSE REVISION QUIZ
+   ===================================== */
+
+.quiz-container {
+  width: min(90%, 760px);
+  margin: 70px auto;
+  padding: 40px;
+  background: #24142e;
+  color: #f5f2f7;
+  border: 2px solid #5bc0eb;
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+.quiz-container h2 {
+  margin: 0 0 25px;
+  font-size: 30px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  background: #341d40;
+  border-radius: 8px;
+}
+
+.quiz-header p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#quiz-timer {
+  color: #5bc0eb;
+  font-size: 22px;
+}
+
+#quiz-score {
+  color: #ecf39e;
+  font-size: 22px;
+}
+
+.quiz-question {
+  padding: 25px;
+  background: #301c3b;
+  border-radius: 8px;
+}
+
+.quiz-question h3 {
+  margin: 0 0 25px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.quiz-answers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.quiz-answer {
+  min-height: 60px;
+  padding: 15px;
+  background: #5bc0eb;
+  color: #24142e;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.quiz-answer:hover:not(:disabled) {
+  background: #87d4f4;
+  transform: translateY(-2px);
+}
+
+.quiz-answer:focus-visible {
+  outline: 3px solid #ecf39e;
+  outline-offset: 3px;
+}
+
+.quiz-answer:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+#quiz-feedback {
+  min-height: 30px;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ecf39e;
+}
+
+.quiz-container a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: #5bc0eb;
+  color: #24142e;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .quiz-container {
+    width: 94%;
+    margin: 30px auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .quiz-container h2 {
+    font-size: 24px;
+  }
+
+  .quiz-header {
+    flex-direction: column;
+  }
+
+  .quiz-answers {
+    grid-template-columns: 1fr;
+  }
+}
